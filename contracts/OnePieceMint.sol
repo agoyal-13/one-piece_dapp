@@ -6,6 +6,7 @@ import {VRFConsumerBaseV2} from "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBa
 import {ERC721URIStorage} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import {console} from "hardhat/console.sol";
 
 contract OnePieceMint is VRFConsumerBaseV2, ERC721, Ownable, ERC721URIStorage {
     event NftRequested(uint256 requestId, address requester);
@@ -41,8 +42,8 @@ contract OnePieceMint is VRFConsumerBaseV2, ERC721, Ownable, ERC721URIStorage {
     mapping(address => bool) public hasMinted; // prevents users from minting multiple NFTs with the same address
     mapping(address => uint256) public s_addressToCharacter; // allows users to query which character they received based on their address
 
-    function mintNFT(address _recipient, uint256 _characterId) internal {
-        require(hasMinted[_recipient], "User already minted the character");
+    function mintNFT(address _recipient, uint256 _characterId) public {
+        require(!hasMinted[_recipient], "User already minted the character");
         uint256 tokenId = s_tokenCounter;
         _safeMint(_recipient, tokenId);
         _setTokenURI(tokenId, characterTokenURIs[_characterId]);
@@ -51,7 +52,7 @@ contract OnePieceMint is VRFConsumerBaseV2, ERC721, Ownable, ERC721URIStorage {
 
         s_tokenCounter++;
         hasMinted[_recipient] = true;
-
+        console.log("hasMinted[_recipient]:--", hasMinted[_recipient]);
         emit NftMinted(_characterId, _recipient);
     }
 
