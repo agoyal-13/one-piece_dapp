@@ -2,7 +2,7 @@ const { loadFixture, time } = require('@nomicfoundation/hardhat-network-helpers'
 const { expect, assert } = require("chai");
 // const { hardhat } = "hardhat";
 const { ethers } = require("hardhat");
-// import { OnePieceMint } from "../contracts/OnePieceMint.sol";
+// const { OnePieceMint } = require("../contracts/OnePieceMint.sol");
 // import { VRFCoordinatorV2Mock } from "@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol";
 const { BN, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
 const { any } = require('hardhat/internal/core/params/argumentTypes');
