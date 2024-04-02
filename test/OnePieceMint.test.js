@@ -1,9 +1,7 @@
 const { loadFixture, time } = require('@nomicfoundation/hardhat-network-helpers');
 const { expect, assert } = require("chai");
-// const { hardhat } = "hardhat";
 const { ethers } = require("hardhat");
-// const { OnePieceMint } = require("../contracts/OnePieceMint.sol");
-// import { VRFCoordinatorV2Mock } from "@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol";
+require('@openzeppelin/test-helpers/configure')({ provider: 'http://localhost:8080', });
 const { BN, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
 const { any } = require('hardhat/internal/core/params/argumentTypes');
 
@@ -24,8 +22,6 @@ describe("OnePieceMint", function () {
     it('emits a NftMinted event on successful minting', async function () {
         const characterId = 0
         const [owner, addr1, receiver] = await ethers.getSigners();
-        console.log('owner:', owner.address);
-        console.log('addr1:', addr1.address);
         console.log('receiver:', receiver.address);
         const receipt = await contract.mintNFT(receiver, characterId);
 
